@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<style>
+			
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+	
+		
+		<!--<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#homepage">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">我的游记</span>
+			</a>
+			<a class="mui-tab-item" href="#write-new-article">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">写新游记</span>
+			</a>
+			<a class="mui-tab-item" href="#userpage">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>		
+		</nav>-->
+		 <header class="mui-bar mui-bar-nav" style="position:fixed";>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的游记</h1>
+		    </header>
+		
+		<div class="mui-content">
+			<div id="homepage" class="mui-control-content mui-active">
+		    
+		   
+		    
+		  
+			<div id = "article-container"></div>
+		    
+		    
+		  		
+			
+			
+	
+			<div id="write-new-article" class="mui-control-content">
+				<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+ 
+    <!-- Include Editor style. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+				
+				 <header class="mui-bar mui-bar-nav" style="position:static;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">编辑新游记</h1>
+		</header>
+		
+				
+				<form class="mui-input-group">
+            <div class="mui-input-row">
+                <label>标题</label>
+                <input autocapitalize="off" autocorrect="off" type="text" class="mui-input-clear" placeholder="请输入标题" id="title">
+            </div>
+            <div class="mui-input-row">
+                <label>关键词</label>
+                <input autocapitalize="off" autocorrect="off" type="text" class="mui-input-clear" placeholder="请输入关键词" id="keyword">
+            </div>
+            
+            <div class="mui-input-row">
+                <label>正文</label>
+                <textarea id="content"></textarea>
+                <!--<input type="text" class="mui-input-clear" placeholder="请输入正文" id="content">-->
+            </div>
+        </form>
+				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+ 
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/js/froala_editor.pkgd.min.js"></script>
+ 	 <script> $(function() { $('#content').froalaEditor({toolbarButtons: ['insertImage']}) }); </script>
+ 	 
+ 	      <footer>
+ 	      	<div class="footer-left">
+				<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+			</div>
+ 	      </footer>
+
+				
+			</div>
+			
+			
+			<div id="userpage" class="mui-control-content">
+				
+				  <header class="mui-bar mui-bar-nav" style="position:static;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的</h1>
+			
+			
+		</header>		
+				
+				<ul class="mui-table-view">
+					
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="myarticle">
+						游记
+					</a>
+				</li>
+				<script>
+					document.getElementById('myarticle').addEventListener('tap', function() {
+             mui.openWindow({
+            url:'myarticle.html', 
+            id:'myarticle',});
+            })
+				</script>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						设置
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						关于APP
+					</a>
+				</li>
+			</ul>
+		
+		
+			</div>
+			
+		</div>	
+		
+		<script src="js/mui.min.js"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+		        mui.init();
+            
+  
+               mui.plusReady(function(){
+   
+              var userid2 = localStorage.getItem('userid');
+              var self=plus.webview.currentWebview();
+               
+                mui.ajax('http://120.78.150.254:8080/Entity/Ud5f8dd0da5/Journal22/Article?Article.user.id='+userid2,{
+                    
+                    type:'get',
+                    timeout:10000,
+                    success:function(data){   
+//                  	console.log(JSON.stringify(data));
+                    	if(data.Article!= undefined){
+                    		var articles = data.Article;
+                    		var container = $('#article-container');
+                    		
+                    		for(var i=articles.length - 1; i >=0;i--)
+                    		{
+                    			var article = articles[i];
+                    			var title = article.title;
+                    			var content = article.content;
+                            var articleid = articles.id;
+                    			var intro = article.introduction;
+                    			var firstSrc = getFirstImgSrc(content);
+                    			var currentstatus="";
+                    			
+//                  			if(article.status != "DRAFT")
+//					        {
+//					        	
+//					        	 mui.ajax('http://120.78.150.254:8080/Entity/Ud5f8dd0da5/Journal22/Assignment/?Assignment.article.id='+article.id,{
+//                  
+//				                    type:'get',
+//				                    timeout:10000,
+//				                    success:function(adata){   
+//				                    	console.log('assignment');
+//				                    	console.log(JSON.stringify(adata));
+//				                    	if(adata.Assignment != undefined){
+//				                    		var assignment = adata.Assignment[0];
+//				                    		assignmentContainer = $('#assignment-container');
+//				                    		if(assignment.content.length > 0)
+//				                    		
+//                                        {  assignmentContainer.append('<div class="mui-card-footer">终审意见：'+assignment.content+'</div>');
+//                                          
+//                                        }
+//				                                 		
+//				                    	}                   
+//							      },
+//							error:function(data){
+//								alert("错误");
+//							}
+//				          });
+//		  
+//					        }
+					        
+                    			
+                		        switch (article.status)
+                    			{
+                    				case "PUBLISHED":currentstatus="已发布";break;
+                    				case "PRIOR_PUBLISHED":currentstatus="优先发布";break;
+                    				case "HIDDEN":currentstatus="已撤回";break;
+                    				case "DRAFT":currentstatus="草稿";break;
+                    				case "REVIEWING":currentstatus="审核中";break;
+                    			}               
+                          
+                            var articleContent = '<div class="mui-card"> <div class="mui-card-header">';
+                            articleContent += article.title +'</div> <div class="mui-card-content"> <div class="mui-card-content-inner">';
+				
+					        articleContent +=' 游记当前状态：'+currentstatus +'</div></div><div id="assignment-container">  </div>';
+					        
+					        
+					        articleContent += '<div class="mui-card-footer"><button id="gotoarticle" class="mui-btn" onclick="gotomyarticle('+article.id+')">查看全文</button>';
+					        
+					        if (currentstatus==="已发布"||currentstatus==="优先发布")
+					        {
+					        	  articleContent +='<button id="canclemyarticle" class="mui-btn" onclick="canclemyarticle('+article.id+')">撤回游记</button>';
+					        }
+					         if (currentstatus==="草稿"||currentstatus==="审核中")
+					        {
+					        	  articleContent +='<button id="canclemyarticle" class="mui-btn" onclick="rewritemyarticle('+article.id+')">修改游记</button>';
+					       
+					        }
+					        
+					        articleContent +='</div> </div>';
+                          
+           
+                            
+                            container.append(articleContent);
+                    		}
+                    		
+                    		
+                    	}                   
+			      },
+			error:function(data){
+				alert("错误");
+			}
+          });
+       
+       
+    });      
+
+        
+    var getFirstImgSrc = function(content) {
+        var i = content.indexOf('img src="');
+        if(i === -1)
+            return "";
+        var tempContent = content.slice(i + 9);
+        var j = tempContent.indexOf('"');
+        return tempContent.slice(0,j);
+    };  
+        
+    function gotomyarticle(articleid){
+
+    localStorage.setItem("articleID",articleid);
+    mui.openWindow({
+ 
+    url:'myarticle.html',
+    id:'myarticle',
+
+    });
+    
+}   
+
+  function canclemyarticle(articleid){
+  	
+  	console.log(articleid);
+  	var userid3 = localStorage.getItem('userid');
+  	console.log(userid3);
+  	
+  	   mui.ajax('http://120.78.150.254:8080/Entity/Ud5f8dd0da5/Journal22/Article?Article.id='+articleid,{           
+                    type:'get',
+                    timeout:10000,
+                    success:function(rdata){   
+                    	console.log(JSON.stringify(rdata));
+                    	if(rdata.Article!= undefined){
+                    		var article = rdata.Article[0];
+                    		
+                    		     var data ={
+                        title:article.title,
+                        introduction:article.introduction,
+                        content:article.content,
+                        keywords:article.keywords,
+                        author:article.author,
+                        postdate:article.postdate,
+                        publishdate:"",
+                        status:"HIDDEN",
+                        user:{id:userid3,
+                        	     type:"User"}
+                        }
+                         	
+  	                  mui.ajax('http://120.78.150.254:8080/Entity/Ud5f8dd0da5/Journal22/Article/'+articleid,{
+				                    data:JSON.stringify(data),
+				                    dataType:'json',//数据格式类型
+				                    type:'PUT',//http请求类型
+				                    	timeout:10000,//超时时间设置为10秒；
+					                headers:{'Content-Type':'application/json'},
+				                    success:function(obj){
+								//alert(obj.toString());
+								alert("撤回成功");
+								window.location.reload();
+							},
+							error:function(obj){
+								alert("撤回失败");
+							}
+                });
+                        
+                    };
+                    
+              
+    
+                    	                 
+			      },
+			error:function(data){
+				alert("错误");
+			}
+          });
+ 
+   
+    
+} 
+
+   function rewritemyarticle(articleid){
+
+    localStorage.setItem("articleID",articleid);
+    mui.openWindow({
+ 
+    url:'rewrite.html',
+    id:'rewrite',
+
+    });
+    
+}  
+
+
+    </script>
+		
+	</body>
+    
+</html>

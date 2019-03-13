@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		
+		<style>
+			
+			.button{  width:100px; height: 50px; line-height:30px;}    
+		</style>
+	</head>
+	
+	
+
+	<body>
+		
+		 <header class="mui-bar mui-bar-nav" style="position:fixed";>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">搜索</h1>
+		    </header>
+		 <div class="mui-content">
+		 	
+		 	    <div class="mui-input-row mui-search">
+    <input id="search" type="search"  class="mui-input-clear" placeholder=""> </div>
+    <div class="mui-content-padded" align="center">
+    <button type="button" id="dosearch">搜索</button></div>
+    
+    <div id ="search-article-container"></div>
+		 </div>
+		    
+		    
+ 	      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			 mui.plusReady(function(){
+              var searchinfo=document.getElementById("search");
+   
+            dosearch.addEventListener('tap',function(){
+                if(searchinfo.value.length==0){
+                    plus.ui.toast("搜索栏不能为空");
+                    return;
+                }
+                $("#search-article-container").html("");
+                mui.ajax('http://120.78.150.254:8080/Entity/Ud5f8dd0da5/Journal22/Article?Article.keywords=(like)'+searchinfo.value,{
+                    
+                    type:'get',
+                    timeout:10000,
+                    success:function(data){   
+                    	console.log(JSON.stringify(data));
+                    	
+                    	if(data.Article!= undefined){
+                    		var articles = data.Article;
+                    		
+                    		var container = $('#search-article-container');
+                    		
+                    		for(var i=articles.length - 1; i >=0;i--)
+                    		{
+                    			var article = articles[i];
+                    			var title = article.title;
+                    			var content = article.content;
+                            var articleid = articles.id;
+                    			var intro = article.introduction;
+                    			var firstSrc = getFirstImgSrc(content);
+                		        if(article.status=="PUBLISHED"||article.status=="PRIOR_PUBLISHED")     {          
+                            if(firstSrc. length>0){
+                           	 var articleContent = '<div class="mui-card"> <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(';
+                            articleContent +=firstSrc+')">'	 
+                            articleContent += article.title +'</div> <div class="mui-card-content"> <div class="mui-card-content-inner">';
+                            
+					 
+					       articleContent += article.introduction ;
+					       articleContent +='</div></div> <div class="mui-card-footer"> <button id="gotoarticle" class="mui-btn" onclick="gotoarticle('+article.id+')">查看全文</button>';
+					         articleContent += '        作者：' +article.author+'</div> </div>';
+					 
+                            }
+                            else{
+                            var articleContent = '<div class="mui-card"> <div class="mui-card-header">';
+                            articleContent += article.title +'</div> <div class="mui-card-content"> <div class="mui-card-content-inner">';
+					 
+					        articleContent += article.introduction +'</div></div> <div class="mui-card-footer">';
+					        articleContent += '<button id="gotoarticle" class="mui-btn" onclick="gotoarticle('+article.id+')">查看全文</button>';
+					        articleContent += '       作者：'+article.author+'</div> </div>';
+                          
+                            }
+           
+                            container.append(articleContent);
+                            
+                            
+                    		}
+                		        
+                    		}
+                    		
+                    	}                   
+			      },
+			error:function(data){
+				alert("错误");
+			}
+          });
+              
+              
+              
+            })
+           
+            
+       
+            
+        })
+			   var getFirstImgSrc = function(content) {
+        var i = content.indexOf('img src="');
+        if(i === -1)
+            return "";
+        var tempContent = content.slice(i + 9);
+        var j = tempContent.indexOf('"');
+        return tempContent.slice(0,j);
+    };  
+        
+    function gotoarticle(articleid){
+
+    localStorage.setItem("articleID",articleid);
+    mui.openWindow({
+ 
+    url:'article.html',
+    id:'article',
+
+    });
+    }   
+			 
+			 
+		</script>
+	</body>
+
+</html>
